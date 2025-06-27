@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Royal Pets</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <!-- Main Menu -->
+        <div id="mainMenu" class="screen active">
+            <div class="menu-content">
+                <h1 class="game-title">Battle Royal Pets</h1>
+                <div class="player-info">
+                    <div class="player-level">Level: <span id="playerLevel">1</span></div>
+                    <div class="player-gold">Gold: <span id="playerGold">1000</span></div>
+                    <div class="player-exp">EXP: <span id="playerExp">0</span>/<span id="playerExpMax">100</span></div>
+                </div>
+                <div class="menu-buttons">
+                    <button id="startBattleBtn" class="btn btn-primary">เริ่มต่อสู้</button>
+                    <button id="openStorageBtn" class="btn btn-secondary">โกดังสัตว์เลี้ยง</button>
+                    <button id="openGachaBtn" class="btn btn-secondary">กาชา</button>
+                    <button id="openTeamBtn" class="btn btn-secondary">จัดทีม</button>
+                    <button id="openInventoryBtn" class="btn btn-secondary">คลังสมบัติ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Battle Screen -->
+        <div id="battleScreen" class="screen">
+            <div class="battle-ui">
+                <div class="battle-info">
+                    <div class="timer">Time: <span id="battleTimer">5</span>s</div>
+                    <button id="battleBackBtn" class="btn btn-small">กลับ</button>
+                </div>
+                
+                <div class="battle-field">
+                    <div class="team player-team">
+                        <h3>ทีมของคุณ</h3>
+                        <div class="pets-container" id="playerPets"></div>
+                    </div>
+                    
+                    <div class="battle-center">
+                        <div class="battle-log" id="battleLog"></div>
+                        <div class="turn-indicator" id="turnIndicator">เตรียมความพร้อม...</div>
+                    </div>
+                    
+                    <div class="team enemy-team">
+                        <h3>ทีมศัตรู</h3>
+                        <div class="pets-container" id="enemyPets"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pet Storage Screen -->
+        <div id="storageScreen" class="screen">
+            <div class="storage-header">
+                <h2>โกดังสัตว์เลี้ยง</h2>
+                <div class="storage-info">
+                    <span id="storageCount">0</span>/<span id="storageMax">50</span> ตัว
+                </div>
+                <button id="storageBackBtn" class="btn btn-small">กลับ</button>
+            </div>
+            
+            <div class="storage-filters">
+                <select id="rarityFilter">
+                    <option value="all">ทุกระดับ</option>
+                    <option value="common">ทั่วไป</option>
+                    <option value="good">ดี</option>
+                    <option value="rare">แรร์</option>
+                    <option value="epic">หายาก</option>
+                    <option value="legendary">ตำนาน</option>
+                    <option value="cosmic">จักรวาล</option>
+                </select>
+                
+                <select id="tribeFilter">
+                    <option value="all">ทุกเผ่า</option>
+                    <option value="วาลเธียร์">วาลเธียร์</option>
+                    <option value="เอลวานีร์">เอลวานีร์</option>
+                    <option value="น็อกซ์ซา">น็อกซ์ซา</option>
+                    <option value="ไกรแรน">ไกรแรน</option>
+                    <option value="ซีร์เวน">ซีร์เวน</option>
+                </select>
+            </div>
+            
+            <div class="pets-grid" id="petsGrid"></div>
+        </div>
+
+        <!-- Team Formation Screen -->
+        <div id="teamScreen" class="screen">
+            <div class="team-header">
+                <h2>จัดทีม</h2>
+                <button id="teamBackBtn" class="btn btn-small">กลับ</button>
+            </div>
+            
+            <div class="team-formation">
+                <div class="current-team">
+                    <h3>ทีมปัจจุบัน (5/5)</h3>
+                    <div class="team-slots" id="teamSlots">
+                        <div class="team-slot" data-slot="0">
+                            <div class="slot-number">1</div>
+                            <div class="pet-slot"></div>
+                        </div>
+                        <div class="team-slot" data-slot="1">
+                            <div class="slot-number">2</div>
+                            <div class="pet-slot"></div>
+                        </div>
+                        <div class="team-slot" data-slot="2">
+                            <div class="slot-number">3</div>
+                            <div class="pet-slot"></div>
+                        </div>
+                        <div class="team-slot" data-slot="3">
+                            <div class="slot-number">4</div>
+                            <div class="pet-slot"></div>
+                        </div>
+                        <div class="team-slot" data-slot="4">
+                            <div class="slot-number">5</div>
+                            <div class="pet-slot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="tribe-synergy" id="tribeSynergy"></div>
+                </div>
+                
+                <div class="available-pets">
+                    <h3>สัตว์เลี้ยงที่มี</h3>
+                    <div class="pets-list" id="availablePets"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gacha Screen -->
+        <div id="gachaScreen" class="screen">
+            <div class="gacha-header">
+                <h2>ระบบกาชา</h2>
+                <button id="gachaBackBtn" class="btn btn-small">กลับ</button>
+            </div>
+            
+            <div class="gacha-boxes">
+                <div class="gacha-box" data-box="normal">
+                    <h3>กล่องธรรมดา</h3>
+                    <div class="box-rates">
+                        <div>ทั่วไป: 80%</div>
+                        <div>ดี: 15%</div>
+                        <div>แรร์: 5%</div>
+                    </div>
+                    <div class="box-price">100 Gold</div>
+                    <button class="btn btn-gacha" data-pulls="1">เปิด 1 ครั้ง</button>
+                    <button class="btn btn-gacha" data-pulls="10">เปิด 10 ครั้ง</button>
+                </div>
+                
+                <div class="gacha-box" data-box="silver">
+                    <h3>กล่องเงิน</h3>
+                    <div class="box-rates">
+                        <div>ทั่วไป: 50%</div>
+                        <div>ดี: 30%</div>
+                        <div>แรร์: 15%</div>
+                        <div>หายาก: 5%</div>
+                    </div>
+                    <div class="box-price">300 Gold</div>
+                    <button class="btn btn-gacha" data-pulls="1">เปิด 1 ครั้ง</button>
+                    <button class="btn btn-gacha" data-pulls="10">เปิด 10 ครั้ง</button>
+                </div>
+                
+                <div class="gacha-box" data-box="platinum">
+                    <h3>กล่องแพลทินั่ม</h3>
+                    <div class="box-rates">
+                        <div>ทั่วไป: 20%</div>
+                        <div>ดี: 30%</div>
+                        <div>แรร์: 25%</div>
+                        <div>หายาก: 20%</div>
+                        <div>ตำนาน: 5%</div>
+                    </div>
+                    <div class="box-price">800 Gold</div>
+                    <button class="btn btn-gacha" data-pulls="1">เปิด 1 ครั้ง</button>
+                    <button class="btn btn-gacha" data-pulls="10">เปิด 10 ครั้ง</button>
+                </div>
+                
+                <div class="gacha-box" data-box="diamond">
+                    <h3>กล่องเพชร</h3>
+                    <div class="box-rates">
+                        <div>ดี: 15%</div>
+                        <div>แรร์: 20%</div>
+                        <div>หายาก: 50%</div>
+                        <div>ตำนาน: 10%</div>
+                        <div>จักรวาล: 5%</div>
+                    </div>
+                    <div class="box-price">2000 Gold</div>
+                    <button class="btn btn-gacha" data-pulls="1">เปิด 1 ครั้ง</button>
+                    <button class="btn btn-gacha" data-pulls="10">เปิด 10 ครั้ง</button>
+                </div>
+                
+                <div class="gacha-box" data-box="rainbow">
+                    <h3>กล่องสายรุ้ง</h3>
+                    <div class="box-rates">
+                        <div>แรร์: 20%</div>
+                        <div>หายาก: 30%</div>
+                        <div>ตำนาน: 40%</div>
+                        <div>จักรวาล: 9%</div>
+                        <div>อำนาจสูงสุด: 1%</div>
+                    </div>
+                    <div class="box-price">5000 Gold</div>
+                    <button class="btn btn-gacha" data-pulls="1">เปิด 1 ครั้ง</button>
+                    <button class="btn btn-gacha" data-pulls="10">เปิด 10 ครั้ง</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pet Detail Modal -->
+        <div id="petDetailModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closePetDetail">&times;</span>
+                <div id="petDetailContent"></div>
+            </div>
+        </div>
+
+        <!-- Gacha Result Modal -->
+        <div id="gachaResultModal" class="modal">
+            <div class="modal-content">
+                <div id="gachaResultContent"></div>
+                <button id="closeGachaResult" class="btn btn-primary">ปิด</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/pets.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/battle.js"></script>
+    <script src="js/gacha.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
