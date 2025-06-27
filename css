@@ -1,0 +1,653 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#gameContainer {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Screen Management */
+.screen {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Main Menu */
+#mainMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+
+.menu-content {
+    text-align: center;
+    background: rgba(255,255,255,0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+}
+
+.game-title {
+    font-size: 3em;
+    color: #4a5568;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.player-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.player-info > div {
+    background: #f7fafc;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    font-weight: bold;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 250px;
+}
+
+/* Button Styles */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #4299e1, #3182ce);
+    color: white;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.btn-gacha {
+    background: linear-gradient(135deg, #ed8936, #dd6b20);
+    color: white;
+    margin: 5px;
+}
+
+/* Battle Screen */
+#battleScreen {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+}
+
+.battle-ui {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.battle-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.timer {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.battle-field {
+    display: grid;
+    grid-template-columns: 1fr 300px 1fr;
+    gap: 20px;
+    min-height: 70vh;
+}
+
+.team {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.team h3 {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.pets-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.battle-pet {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.battle-pet.active {
+    border-color: #ffd700;
+    box-shadow: 0 0 20px rgba(255,215,0,0.5);
+}
+
+.battle-pet.dead {
+    opacity: 0.5;
+    background: rgba(139,69,19,0.3);
+}
+
+.pet-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.pet-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.pet-stats {
+    font-size: 12px;
+}
+
+.pet-hp-bar, .pet-mp-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 4px;
+    margin: 5px 0;
+    overflow: hidden;
+}
+
+.hp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #48bb78, #38a169);
+    transition: width 0.5s ease;
+}
+
+.mp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4299e1, #3182ce);
+    transition: width 0.5s ease;
+}
+
+.battle-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.battle-log {
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.turn-indicator {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffd700;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid #ffd700;
+    border-radius: 10px;
+    background: rgba(255,215,0,0.1);
+}
+
+/* Storage Screen */
+.storage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.storage-filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.storage-filters select {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background: white;
+    font-size: 14px;
+}
+
+.pets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.pet-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.pet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.pet-card.common { border-color: #9CA3AF; }
+.pet-card.good { border-color: #10B981; }
+.pet-card.rare { border-color: #3B82F6; }
+.pet-card.epic { border-color: #8B5CF6; }
+.pet-card.legendary { border-color: #F59E0B; }
+.pet-card.cosmic { border-color: #EF4444; }
+
+.pet-avatar {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+.pet-card-name {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.pet-card-info {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+
+.pet-skills-count {
+    background: #e2e8f0;
+    padding: 4px 8px;
+    border-radius: 12px;
+    margin: 2px;
+    display: inline-block;
+}
+
+/* Team Formation */
+.team-formation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    color: white;
+}
+
+.current-team {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.team-slots {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.team-slot {
+    text-align: center;
+}
+
+.slot-number {
+    background: #4a5568;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.pet-slot {
+    width: 80px;
+    height: 100px;
+    border: 3px dashed #666;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.pet-slot:hover {
+    border-color: #ffd700;
+    background: rgba(255,215,0,0.1);
+}
+
+.pet-slot.filled {
+    border-style: solid;
+    border-color: #48bb78;
+    background: rgba(72,187,120,0.2);
+}
+
+.available-pets {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.pets-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+}
+
+.mini-pet-card {
+    background: rgba(255,255,255,0.9);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mini-pet-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.tribe-synergy {
+    background: rgba(255,215,0,0.1);
+    border: 2px solid #ffd700;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+/* Gacha Screen */
+.gacha-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gacha-box {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.gacha-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.gacha-box h3 {
+    color: #4a5568;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.box-rates {
+    background: #f7fafc;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.box-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ed8936;
+    margin-bottom: 15px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
+.close:hover {
+    color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 2em;
+    }
+    
+    .battle-field {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+    
+    .team-formation {
+        grid-template-columns: 1fr;
+    }
+    
+    .team-slots {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .gacha-boxes {
+        grid-template-columns: 1fr;
+    }
+    
+    .player-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    80% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
+
+/* Damage Numbers */
+.damage-number {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff6b6b;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    pointer-events: none;
+    z-index: 100;
+    animation: damageFloat 1.5s ease-out forwards;
+}
+
+.heal-number {
+    color: #51cf66;
+}
+
+@keyframes damageFloat {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-80px) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Loading Spinner */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
